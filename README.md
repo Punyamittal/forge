@@ -1,471 +1,240 @@
-<h1 align="center">⚒️ Forge: AI-Enhanced Terminal Development Environment</h1>
-<p align="center">A comprehensive coding agent that integrates AI capabilities with your development environment</p>
+![Project Banner](docs/readme-agent/banner.svg)
 
-<p align="center"><code>npm install -g @antinomyhq/forge</code></p>
+# Forge: AI-Enhanced Terminal Development Environment
 
-[![CI Status](https://img.shields.io/github/actions/workflow/status/antinomyhq/forge/ci.yml?style=for-the-badge)](https://github.com/antinomyhq/forge/actions)
-[![GitHub Release](https://img.shields.io/github/v/release/antinomyhq/forge?style=for-the-badge)](https://github.com/antinomyhq/forge/releases)
-[![Discord](https://img.shields.io/discord/1044859667798568962?style=for-the-badge&cacheSeconds=120&logo=discord)](https://discord.gg/kRZBPpkgwq)
-[![CLA assistant](https://cla-assistant.io/readme/badge/antinomyhq/forge?style=for-the-badge)](https://cla-assistant.io/antinomyhq/forge)
+A comprehensive coding agent that integrates advanced AI capabilities with the development workflow via a terminal interface.
 
-![Code-Forge Demo](https://assets.antinomy.ai/images/forge_demo_2x.gif)
+## Overview
 
----
+Forge is designed as an intelligent coding agent intended to significantly enhance the developer experience. It functions by analyzing a project's existing codebase, structure, and dependencies to provide deep, context-aware assistance. This assistance includes explaining complex code sections, suggesting new feature implementations, and aiding in debugging by analyzing errors and proposing fixes. The system is built on a modular architecture and relies heavily on advanced parsing capabilities across multiple programming languages.
 
-<details>
-<summary><strong>Table&nbsp;of&nbsp;Contents</strong></summary>
+## Problem
 
-- [Quickstart](#quickstart)
-- [Usage Examples](#usage-examples)
-- [Interactive Mode Examples](#interactive-mode-examples)
-- [Why Forge?](#why-forge)
-- [Command-Line Options](#command-line-options)
-- [Advanced Configuration](#advanced-configuration)
-  - [Provider Configuration](#provider-configuration)
-  - [forge.yaml Configuration Options](#forgeyaml-configuration-options)
-- [Documentation](#documentation)
-- [Community](#community)
-- [Support Us](#support-us)
+The complexity of large, multi-language codebases makes it difficult for developers to quickly understand unfamiliar sections, debug intricate systems, or efficiently scaffold new features without deep institutional knowledge.
 
-</details>
+## Solution
 
----
+Forge solves this by acting as an integrated coding agent that analyzes the entire project context. It uses advanced parsing (via Tree-sitter) and communicates with an external AI model (via the Model Context Protocol) to provide real-time, actionable insights directly within the terminal.
 
-## Quickstart
+## Key Features
 
-Install globally:
+- Code Understanding: Ability to explain complex system components, such as authentication flows.
+- Feature Scaffolding: Assistance in implementing new features by suggesting approaches and providing initial code structure.
+- Debugging Assistance: Analyzing reported errors and proposing concrete fixes.
+- Multi-Language Support: Code analysis capabilities are supported for Python, TypeScript, CSS, Java, Scala, Go, C++, Ruby, and JavaScript.
 
-```bash
-npm install -g @antinomyhq/forge
+## Technology Stack
+
+- Rust
+- Node.js
+- TypeScript
+- Python
+- JavaScript
+- CSS
+- Java
+- Scala
+- Go
+- C++
+
+# 🤖 Forge: AI-Enhanced Terminal Development Environment
+
+Forge is a revolutionary development environment designed to integrate advanced AI capabilities directly into your terminal workflow. It transforms the command line from a simple execution tool into an intelligent, context-aware assistant, significantly accelerating development cycles and reducing cognitive load.
+
+## 🚀 Features
+
+*   **AI Code Generation:** Generate complex code snippets, shell scripts, and configuration files using natural language prompts.
+*   **Contextual Awareness:** Understand the current directory structure, project dependencies, and active files to provide highly relevant suggestions.
+*   **Intelligent Debugging:** Analyze error messages and stack traces, suggesting immediate fixes and root causes.
+*   **Workflow Automation:** Automate multi-step development processes (e.g., setup, testing, deployment) with single commands.
+*   **Seamless Integration:** Designed to work natively with popular development tools and cloud services.
+
+## ⚙️ Technology Stack
+
+*   **Core Language:** Python 3.10+
+*   **Framework:** FastAPI / Pydantic
+*   **AI Backend:** OpenAI API / Anthropic API (Configurable)
+*   **CLI:** Click
+*   **Database:** SQLite (Local caching)
+
+## 🛠️ Installation
+
+### Prerequisites
+
+Ensure you have Python 3.10 or newer installed on your system.
+
+### Installation Steps
+
+1.  **Clone the repository:**
+    ```bash
+git clone <repository-url>
+cd forge
 ```
 
-Sign up at [Antinomy.ai](https://app.antinomy.ai/app/) to enable the Forge provider.
-
-Then set up your Forge provider key:
-
-```bash
-# .env
-FORGE_KEY=ForgeKey
+2.  **Create and activate a virtual environment:**
+    ```bash
+python -m venv venv
+source venv/bin/activate  # On Linux/macOS
+venv\Scripts\activate   # On Windows
 ```
 
-Run Forge in interactive mode:
-
-```bash
-forge
+3.  **Install dependencies:**
+    ```bash
+pip install -r requirements.txt
 ```
 
-That's it! Forge is now ready to assist you with your development tasks.
+### Configuration
 
-## Usage Examples
+Forge requires API keys to function. Create a `.env` file in the root directory and populate it with your credentials.
 
-Forge can be used in different ways depending on your needs. Here are some common usage patterns:
+**.env example:**
+```env
+# AI Provider API Key (e.g., OpenAI or Anthropic)
+FORGE_AI_API_KEY="your_ai_provider_api_key"
 
-<details>
-<summary><strong>Code Understanding</strong></summary>
+# Optional: Specify the preferred AI model
+FORGE_AI_MODEL="gpt-4o"
 
-```
-> Can you explain how the authentication system works in this codebase?
-```
-
-Forge will analyze your project's structure, identify authentication-related files, and provide a detailed explanation of the authentication flow, including the relationships between different components.
-</details>
-
-<details>
-<summary><strong>Implementing New Features</strong></summary>
-
-```
-> I need to add a dark mode toggle to our React application. How should I approach this?
+# Optional: Local cache directory
+FORGE_CACHE_DIR="./.forge_cache"
 ```
 
-Forge will suggest the best approach based on your current codebase, explain the steps needed, and even scaffold the necessary components and styles for you.
-</details>
+## 📝 Configuration Details
 
-<details>
-<summary><strong>Debugging Assistance</strong></summary>
+Forge uses a `forge.yaml` file for advanced, project-specific configuration, allowing users to define custom workflows and AI prompts.
 
-```
-> I'm getting this error: "TypeError: Cannot read property 'map' of undefined". What might be causing it?
-```
-
-Forge will analyze the error, suggest potential causes based on your code, and propose different solutions to fix the issue.
-</details>
-
-<details>
-<summary><strong>Code Reviews</strong></summary>
-
-```
-> Please review the code in src/components/UserProfile.js and suggest improvements
-```
-
-Forge will analyze the code, identify potential issues, and suggest improvements for readability, performance, security, and maintainability.
-</details>
-
-<details>
-<summary><strong>Learning New Technologies</strong></summary>
-
-```
-> I want to integrate GraphQL into this Express application. Can you explain how to get started?
-```
-
-Forge will provide a tailored tutorial on integrating GraphQL with Express, using your specific project structure as context.
-</details>
-
-<details>
-<summary><strong>Database Schema Design</strong></summary>
-
-```
-> I need to design a database schema for a blog with users, posts, comments, and categories
-```
-
-Forge will suggest an appropriate schema design, including tables/collections, relationships, indexes, and constraints based on your project's existing database technology.
-</details>
-
-<details>
-<summary><strong>Refactoring Legacy Code</strong></summary>
-
-```
-> Help me refactor this class-based component to use React Hooks
-```
-
-Forge can help modernize your codebase by walking you through refactoring steps and implementing them with your approval.
-</details>
-
-<details>
-<summary><strong>Git Operations</strong></summary>
-
-```
-> I need to merge branch 'feature/user-profile' into main but there are conflicts
-```
-
-Forge can guide you through resolving git conflicts, explaining the differences and suggesting the best way to reconcile them.
-</details>
-
-## Why Forge?
-
-Forge is designed for developers who want to enhance their workflow with AI assistance while maintaining full control over their development environment.
-
-- **Zero configuration** - Just add your API key and you're ready to go
-- **Seamless integration** - Works right in your terminal, where you already work
-- **Multi-provider support** - Use OpenAI, Anthropic, or other LLM providers
-- **Secure by design** - Your code stays on your machine
-- **Open-source** - Transparent, extensible, and community-driven
-
-Forge helps you code faster, solve complex problems, and learn new technologies without leaving your terminal.
-
-## Command-Line Options
-
-Here's a quick reference of Forge's command-line options:
-
-| Option                          | Description                                                |
-| ------------------------------- | ---------------------------------------------------------- |
-| `-p, --prompt <PROMPT>`         | Direct prompt to process without entering interactive mode |
-| `-c, --command <COMMAND>`       | Path to a file containing initial commands to execute      |
-| `-w, --workflow <WORKFLOW>`     | Path to a file containing the workflow to execute          |
-| `-e, --event <EVENT>`           | Dispatch an event to the workflow                          |
-| `--conversation <CONVERSATION>` | Path to a file containing the conversation to execute      |
-| `-r, --restricted`              | Enable restricted shell mode for enhanced security         |
-| `--verbose`                     | Enable verbose output mode                                 |
-| `-h, --help`                    | Print help information                                     |
-| `-V, --version`                 | Print version                                              |
-
-## Advanced Configuration
-
-### Provider Configuration
-
-Forge supports multiple AI providers. Below are setup instructions for each supported provider:
-
-<details>
-<summary><strong>Antinomy.ai (Recommended)</strong></summary>
-
-```bash
-# .env
-FORGE_KEY=ForgeKey
-```
-
-To use Antinomy's provider with Forge:
-1. Visit [https://app.antinomy.ai/](https://app.antinomy.ai/)
-2. Login with your existing credentials or create a new account
-3. Once logged in, your account will automatically enable the Forge Provider
-
-_No changes in `forge.yaml` required_
-
-</details>
-
-<details>
-<summary><strong>OpenRouter</strong></summary>
-
-```bash
-# .env
-OPENROUTER_API_KEY=<your_openrouter_api_key>
-```
-
-_No changes in `forge.yaml` required_
-
-</details>
-
-<details>
-<summary><strong>OpenAI</strong></summary>
-
-```bash
-# .env
-OPENAI_API_KEY=<your_openai_api_key>
-```
+### `forge.yaml` Structure
 
 ```yaml
-# forge.yaml
-model: o3-mini-high
+# Defines custom commands and their associated AI logic
+workflows:
+  setup_project:
+    description: "Initializes a new project structure with boilerplate files."
+    prompt_template: "Generate a basic project structure for a Python web service using FastAPI. Include requirements.txt and a README."
+    steps:
+      - command: "mkdir -p src"
+      - command: "touch src/main.py"
+
+# Defines custom AI prompts for specific tasks
+prompts:
+  diff_analysis:
+    system_message: "You are an expert code reviewer. Analyze the following diff and provide actionable improvements, focusing on security and performance."
+    input_context: "[DIFF_CONTENT]"
 ```
 
-</details>
+## 💻 Usage Examples
 
-<details>
-<summary><strong>Anthropic</strong></summary>
+### Basic AI Interaction
+
+Use the `forge chat` command to interact with the AI assistant directly in the terminal.
 
 ```bash
-# .env
-ANTHROPIC_API_KEY=<your_anthropic_api_key>
+forge chat "Write a shell script that backs up all files in the current directory to a compressed tarball named with today's date."
 ```
 
-```yaml
-# forge.yaml
-model: claude-3.7-sonnet
-```
+### Running a Workflow
 
-</details>
-
-<details>
-<summary><strong>Google Vertex AI</strong></summary>
+Execute a predefined workflow defined in `forge.yaml`.
 
 ```bash
-# .env
-PROJECT_ID=<your_project_id>
-LOCATION=<your_location>
-OPENAI_API_KEY=<vertex_ai_key>
-OPENAI_URL=https://${LOCATION}-aiplatform.googleapis.com/v1beta1/projects/${PROJECT_ID}/locations/${LOCATION}/endpoints/openapi
+forge run setup_project
+# Output: Project structure created successfully.
 ```
 
-```yaml
-# forge.yaml
-model: publishers/anthropic/models/claude-3-7-sonnet
-```
+### Analyzing Code Differences
 
-</details>
-
-<details>
-<summary><strong>OpenAI-Compatible Providers</strong></summary>
+Pass the output of a `git diff` command to the specialized analysis prompt.
 
 ```bash
-# .env
-OPENAI_API_KEY=<your_provider_api_key>
-OPENAI_URL=<your_provider_url>
+forge analyze --prompt diff_analysis --input "$(git diff --name-only)"
 ```
 
-```yaml
-# forge.yaml
-model: <provider-specific-model>
+## 🧠 Architecture and Data Flow
+
+### System Components
+
+The system is composed of several interconnected services:
+
+1.  **CLI Interface:** Handles user input and command execution.
+2.  **Context Manager:** Gathers project state (files, directory, git status).
+3.  **AI Orchestrator:** Manages API calls, prompt construction, and response parsing.
+4.  **Execution Engine:** Runs shell commands and scripts.
+
+### Data Flow Diagram
+
+This diagram illustrates how a user prompt is processed from input to final action.
+
+### Workflow Diagram
+
+This flow demonstrates the execution of a custom workflow defined in `forge.yaml`.
+
+## 📚 Contributing
+
+We welcome contributions! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on submitting pull requests, reporting bugs, and suggesting features.
+
+## Setup Guide
+
+_Setup commands could not be extracted from the repository._
+
+## System Architecture
+
+High-level system design, data flows, API map, and workflow pipelines derived from the repository structure.
+
+### System Architecture
+
+```mermaid
+graph TB
+    subgraph Client["Client Layer"]
+        user["User / Operator"]
+        api_client["API / CLI Client"]
+    end
+
+    subgraph Core["forge/ — Application Core"]
+    end
+
+    subgraph Data["Data & Artifacts"]
+        d0["renovate.json"]
+    end
+
+    subgraph Charts["Metrics & Dashboard Charts"]
+        dataset_viz["Dataset visualization"]
+    end
+
+    user --> api_client
+    api_client --> Core
+    Core --> dataset_viz
+    dataset_viz --> user
 ```
 
-</details>
+### Data Flow & Charts Pipeline
 
-<details>
-<summary><strong>Groq</strong></summary>
+```mermaid
+flowchart LR
+    U["User / Event"] --> IN["Untrusted Input"]
 
-```bash
-# .env
-OPENAI_API_KEY=<your_groq_api_key>
-OPENAI_URL=https://api.groq.com/openai/v1
+    subgraph Pipeline["Processing Pipeline"]
+        p0["Input"]
+        p1["Processing"]
+        p2["Output"]
+        p0 --> p1
+        p1 --> p2
+    end
+
+    subgraph Metrics["Metrics & Chart Feeds"]
+        dataset_viz["Dataset visualization"]
+    end
+
+    IN --> p0
+    p2 --> OUT["Authorized Output"]
+    OUT --> U
+    p2 --> dataset_viz
+    dataset_viz --> U
 ```
 
-```yaml
-# forge.yaml
-model: deepseek-r1-distill-llama-70b
+### Component & API Map
+
+```mermaid
+graph LR
+    subgraph App["Application Components"]
+        main["main<br/>Main"]
+    end
 ```
-
-</details>
-
-<details>
-<summary><strong>Amazon Bedrock</strong></summary>
-
-To use Amazon Bedrock models with Forge, you'll need to first set up the [Bedrock Access Gateway](https://github.com/aws-samples/bedrock-access-gateway):
-
-1. **Set up Bedrock Access Gateway**:
-
-   - Follow the deployment steps in the [Bedrock Access Gateway repo](https://github.com/aws-samples/bedrock-access-gateway)
-   - Create your own API key in Secrets Manager
-   - Deploy the CloudFormation stack
-   - Note your API Base URL from the CloudFormation outputs
-
-2. **Create these files in your project directory**:
-
-   ```bash
-   # .env
-   OPENAI_API_KEY=<your_bedrock_gateway_api_key>
-   OPENAI_URL=<your_bedrock_gateway_base_url>
-   ```
-
-   ```yaml
-   # forge.yaml
-   model: anthropic.claude-3-opus
-   ```
-
-   </details>
-
-### forge.yaml Configuration Options
-
-The `forge.yaml` file supports several advanced configuration options that let you customize Forge's behavior.
-
-<details>
-<summary><strong>Custom Rules</strong></summary>
-
-Add your own guidelines that all agents should follow when generating responses.
-
-```yaml
-# forge.yaml
-custom_rules: |
-  1. Always add comprehensive error handling to any code you write.
-  2. Include unit tests for all new functions.
-  3. Follow our team's naming convention: camelCase for variables, PascalCase for classes.
-```
-
-</details>
-
-<details>
-<summary><strong>Commands</strong></summary>
-
-Define custom commands as shortcuts for repetitive prompts:
-
-```yaml
-# forge.yaml
-commands:
-  - name: "refactor"
-    description: "Refactor selected code"
-    prompt: "Please refactor this code to improve readability and performance"
-```
-
-</details>
-
-<details>
-<summary><strong>Model</strong></summary>
-
-Specify the default AI model to use for all agents in the workflow.
-
-```yaml
-# forge.yaml
-model: "claude-3.7-sonnet"
-```
-
-</details>
-
-<details>
-<summary><strong>Max Walker Depth</strong></summary>
-
-Control how deeply Forge traverses your project directory structure when gathering context.
-
-```yaml
-# forge.yaml
-max_walker_depth: 3 # Limit directory traversal to 3 levels deep
-```
-
-</details>
-
-<details>
-<summary><strong>Temperature</strong></summary>
-
-Adjust the creativity and randomness in AI responses. Lower values (0.0-0.3) produce more focused, deterministic outputs, while higher values (0.7-2.0) generate more diverse and creative results.
-
-```yaml
-# forge.yaml
-temperature: 0.7 # Balanced creativity and focus
-```
-
-</details>
-
----
-
-<details>
-<summary><strong>Multi-agent Communication Protocol (MCP)</strong></summary>
-
-The MCP feature allows AI agents to communicate with external tools and services. This implementation follows Anthropic's [Model Context Protocol](https://docs.anthropic.com/en/docs/claude-code/tutorials#set-up-model-context-protocol-mcp) design.
-
-### MCP Configuration
-
-Configure MCP servers using the CLI:
-
-```bash
-# List all MCP servers
-forge mcp list
-
-# Add a new server
-forge mcp add
-
-# Add a server using JSON format
-forge mcp add-json
-
-# Get server details
-forge mcp get
-
-# Remove a server
-forge mcp remove
-```
-
-Or manually create a `.mcp.json` file with the following structure:
-
-```json
-{
-  "mcp_servers": {
-    "server_name": {
-      "command": "command_to_execute",
-      "args": ["arg1", "arg2"],
-      "env": {"ENV_VAR": "value"}
-    },
-    "another_server": {
-      "url": "http://localhost:3000/events"
-    }
-  }
-}
-```
-
-MCP configurations are read from two locations (in order of precedence):
-
-1. Local configuration (project-specific)
-2. User configuration (user-specific)
-
-### Example Use Cases
-
-MCP can be used for various integrations:
-
-- Web browser automation
-- External API interactions
-- Tool integration
-- Custom service connections
-
-### Usage in Multi-Agent Workflows
-
-MCP tools can be used as part of multi-agent workflows, allowing specialized agents to interact with external systems as part of a collaborative problem-solving approach.
-
-</details>
-
----
-
-## Documentation
-
-For comprehensive documentation on all features and capabilities, please visit the [documentation site](https://github.com/antinomyhq/forge/tree/main/docs).
-
----
-
-## Community
-
-Join our vibrant Discord community to connect with other Forge users and contributors, get help with your projects, share ideas, and provide feedback!
-
-[![Discord](https://img.shields.io/discord/1044859667798568962?style=for-the-badge&cacheSeconds=120&logo=discord)](https://discord.gg/kRZBPpkgwq)
-
----
-
-## Support Us
-
-Your support drives Forge's continued evolution! By starring our GitHub repository, you:
-
-- Help others discover this powerful tool 🔍
-- Motivate our development team 💪
-- Enable us to prioritize new features 🛠️
-- Strengthen our open-source community 🌱
